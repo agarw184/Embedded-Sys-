@@ -1,0 +1,44 @@
+Author : Abhimanyu Agarwal
+Topic : Lab - 6 
+
+To get the flying car working succesfully, I used the MPU6050. This was the new addition part that I used. Moreover, the designed as specified in the lab manual was followed by me. 
+The initialization/program workflow also works according to the expected program flow. 
+
+To accomplish this I made use of the MPU class as written on the Piazza post. I modified based on my requirements intrducting a variable 'theta' instead of 'yaw'. It can be seen that
+the variable 'theta_offset' takes care of the variation that comes in the values. Some values were changed intially to get a sense of the accuracy of the output values being printed out. 
+On making sure of the accuracy, I moved ahead and got started working on deeper concepts associated with this lab.
+
+
+Two buttons were used to control the program workflow. On pressing button - 1, the current acceleration, temperature and gyroscopic values are read and printed out. 
+On pressing button - 2, the control shifts. Now, the onboard led at pin - 13 begins PWM at a frequency = 10Hz and duty cycle = 512. As the onboard led continues this until 
+button - 1 is pressed, the acceleration of the velocity is stored in the respective directional velocity variables. 
+NOTE: It is assumed time (t) = 1 sec. This is because when we apply v = u + a * t, to convert acceleration to velocity, we want it to be for per second. After this, the change in the 
+velocity along every direction is checked to see if there is movement. If there is movement, then red led lights up else it is off.
+
+Furthermore, the pitch, roll and theta value were recorded and if there was more than or equal to 30 degress of rotation along any given axis in any direction, the yellow LED light up 
+else remained switched off. On a similar idea, the initial temperature value is recorded. After recording this value in a variable a little later the new temperature is computed and 
+stored in a new variable. The temperature between the initial temperature and current temperature is computed. The frequency of the onboard led at pin - 13 is altered based on this 
+computed temperature difference. If the change in measured temperature is more than 1°C, the led PWM frequency changes by ±5 Hz for every ±1°C change in temperature. 
+The onboard led blinking frequency should now increase/decrease with temperature difference. 
+
+NOTE: At every instant the velocity, temperature and gyroscopic values are displayed.   
+
+Aside from this work, if the vehicle is in rest on a flat surface, implying that there is no motion then green LED should light up else remain off. 
+As soon as button - 1 is pressed, the on board LED stops performing PWM and is just switched ON without any deviation in frequency. 
+It can be understood from this that button - 1 and button - 2 work hand in hand for proper implementation of the car. Moreover, It is made sure that the two buttons are debounced 
+propoerly, so that their press can be detected timely and accurately. 
+
+Moreover, I have used another timer that takes care of updating values on google sheets. This is inaccordance with the created account made by me on the IFTTT website. Everytime this webhook is invoked the corresponding message is displayed. At this point the SessionID is incremented as well. Furthermore, this update takes place a minute after routine of switch - 2 ends and switch - 1 has been pressed. The values are updated in a specific format laid out by me. 
+
+To summarize, as soon as switch - 2 routine ends on press of switch - 1 the update takes place a minute after that. Currently, the timer value set by me is 10s as it seemed a good test value. That could be changed to period = 60000 for ideal behavior. The updates take place correctly and instantly. 
+
+
+Results:
+Currently, the system works as expected for the given code.
+
+Submission
+ - includes
+	1) spinner.py
+	2) myDecisions.txt 
+
+            
